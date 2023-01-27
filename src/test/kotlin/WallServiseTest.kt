@@ -11,23 +11,23 @@ class WallServiseTest {
 
     @Test
     fun add() {
-        val add = Post(1)
-        val result = WallServise.add(Post(1))
+        val add = Post(1, text = "Привет")
+        val result = WallServise.add(Post(1, text = "Привет"))
         assertNotEquals(null, result)
     }
 
 
     @Test
     fun updateTrue() {
-        WallServise.add(Post(1))
-        val result = WallServise.update(Post(1))
+        WallServise.add(Post(1, text = "Привет"))
+        val result = WallServise.update(Post(1, text = "Привет"))
         assertTrue(result)
     }
 
     @Test
     fun updateFalse() {
-        WallServise.add(Post(1))
-        val result = WallServise.update(Post(2))
+        WallServise.add(Post(1, text = "Привет"))
+        val result = WallServise.update(Post(2, text = "Привет"))
         assertFalse(result)
     }
 }

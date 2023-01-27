@@ -2,15 +2,17 @@ data class Post(
     var id: Int = 0,
     val owenId: Int = 0,
     val fromId: Int = 0,
-    val text: String = "Привет",
+    val text: String?,
     val canPin: Boolean = true,
     val canDelete: Boolean = true,
     val canEdit: Boolean = true,
-    var likeCount: Int = 0
+    var likeCount: Int = 0,
+    var attachments: Array<Attachment> = emptyArray()
 ) {
     inner class Likes() {
     }
 }
+
 
 object WallServise {
     private var counter = 0
@@ -23,7 +25,7 @@ object WallServise {
     fun update(newPost: Post): Boolean {
         for ((index, post) in posts.withIndex()) {
             if (newPost.id == post.id) {
-                posts[index] = newPost.copy(text = "Пока")
+                posts[index] = newPost.copy(text = "Пока", likeCount = post.likeCount)
                 return true
             }
         }
@@ -44,16 +46,18 @@ object WallServise {
             }
         }
     }
+
     fun clear() {
         posts = emptyArray()
     }
 }
 
 fun main() {
-    WallServise.add(Post(1, 1, 1))
-    WallServise.add(Post(2, 2, 2))
+
+    WallServise.add(Post(1, 1, 1, text = "Привет", attachments = arrayOf(AudioAttachments(Audio(1,"Егор")), VideoAttachments(Video(1, "Смех")))))
+    WallServise.add(Post(2, 2, 2, text = "Привет"))
     WallServise.likedById(1, false, true)
     WallServise.printAll()
-    println(WallServise.update(Post(1)))
+    println(WallServise.update(Post(1, text = "Привет")))
     WallServise.printAll()
 }
