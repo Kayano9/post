@@ -10,14 +10,12 @@ data class Post(
     val canEdit: Boolean = true,
     var likeCount: Int = 0,
     var attachments: Array<Attachment> = emptyArray()
-) {
-    inner class Likes() {}
-}
+) 
 
 class PostNotFoundException(message: String) : RuntimeException(message)
 data class Comment(val id: Int, val fromId: Int, val text: String)
 
-object WallServise {
+object WallService {
     private var counter = 0
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
@@ -73,7 +71,7 @@ object WallServise {
 
 fun main() {
 
-    WallServise.add(
+    WallService.add(
         Post(
             1,
             1,
@@ -82,11 +80,11 @@ fun main() {
             attachments = arrayOf(AudioAttachments(Audio(1, "Егор")), VideoAttachments(Video(1, "Смех")))
         )
     )
-    WallServise.add(Post(2, 2, 2, text = "Привет"))
-    WallServise.likedById(1, false, true)
-    WallServise.createComment(2, Comment(1, 1, "Отлично"))
-    WallServise.printComments()
-    WallServise.printAll()
-    println(WallServise.update(Post(1, text = "Привет")))
-    WallServise.printAll()
+    WallService.add(Post(2, 2, 2, text = "Привет"))
+    WallService.likedById(1, false, true)
+    WallService.createComment(2, Comment(1, 1, "Отлично"))
+    WallService.printComments()
+    WallService.printAll()
+    println(WallService.update(Post(1, text = "Привет")))
+    WallService.printAll()
 }
